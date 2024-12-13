@@ -1,0 +1,6 @@
+[Ubuntu servers]
+server1 ansible_host=192.168.56.135
+
+[Centos Server]
+
+centos ansible_host=192.168.56.137 ansible_user=centos
