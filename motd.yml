@@ -1,0 +1,9 @@
+---
+- name: Enterprise Service and Monitoring Setup
+  hosts: all
+  become: true
+  tasks:  # This line is necessary to define the tasks section
+    - name: Update MOTD
+      copy:
+        dest: /etc/motd
+        content: "Ansible Managed by ESCOSIA!!"

@@ -1,0 +1,51 @@
+---
+- name: Install and configure web and database servers
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Remove problematic APT source file on Ubuntu
+      file:
+        path: /etc/apt/sources.list.d/cloud_archive_ubuntu_com_ubuntu.list
+        state: absent
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Install mariadb package (CentOS)
+      yum:
+        name: mariadb-server
+        state: present
+      when: ansible_distribution == "CentOS"
+
+
+    - name: Start MariaDB (CentOS)
+      service:
+        name: mariadb
+        state: started
+      when: ansible_distribution == "CentOS"
+
+
+    - name: Enable MariaDB (CentOS)
+      service:
+        name: mariadb
+        enabled: true
+      when: ansible_distribution == "CentOS"
+
+
+    - name: Install mariadb package (Ubuntu)
+      apt:
+        name: mariadb-server
+        state: present
+      when: ansible_distribution == "Ubuntu"
+
+
+    - name: Start MariaDB (Ubuntu)
+      service:
+        name: mariadb
+        state: started
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Enable MariaDB (Ubuntu)
+      service:
+        name: mariadb
+        enabled: true
+      when: ansible_distribution == "Ubuntu"
